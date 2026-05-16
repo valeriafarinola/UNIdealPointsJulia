@@ -59,3 +59,32 @@ println("First 10 theta values:")
 println(Theta[1:10])
 println("First 10 theta-vector values:")
 println(ThetaVector[1:10])
+gLo =
+    -99 .* (yObs .== 1) .+
+    repeat(Gamma1, inner = VoteN) .* (yObs .== 2) .+
+    repeat(Gamma2, inner = VoteN) .* (yObs .== 3)
+
+gHi =
+    repeat(Gamma1, inner = VoteN) .* (yObs .== 1) .+
+    repeat(Gamma2, inner = VoteN) .* (yObs .== 2) .+
+    99 .* (yObs .== 3)
+
+sigmaMH = 0.1
+
+Gamma1_new, Gamma2_new, gLo_new, gHi_new, AcceptTemp =
+    update_gamma(
+        Gamma1,
+        Gamma2,
+        BetaVector,
+        ThetaVector,
+        yObs,
+        VoteN,
+        VoteStartEnd,
+        gLo,
+        gHi,
+        sigmaMH
+    )
+
+println("Gamma update completed")
+println("Length Gamma1: ", length(Gamma1_new))
+println("Accepted gamma proposals: ", sum(AcceptTemp))
