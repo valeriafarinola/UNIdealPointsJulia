@@ -59,16 +59,18 @@ println("First 10 theta values:")
 println(Theta[1:10])
 println("First 10 theta-vector values:")
 println(ThetaVector[1:10])
+Gamma1Vector = UNIdealPointsJulia.r_rep(Gamma1, VoteN)
+Gamma2Vector = UNIdealPointsJulia.r_rep(Gamma2, VoteN)
+
 gLo =
     -99 .* (yObs .== 1) .+
-    repeat(Gamma1, inner = VoteN) .* (yObs .== 2) .+
-    repeat(Gamma2, inner = VoteN) .* (yObs .== 3)
+    Gamma1Vector .* (yObs .== 2) .+
+    Gamma2Vector .* (yObs .== 3)
 
 gHi =
-    repeat(Gamma1, inner = VoteN) .* (yObs .== 1) .+
-    repeat(Gamma2, inner = VoteN) .* (yObs .== 2) .+
+    Gamma1Vector .* (yObs .== 1) .+
+    Gamma2Vector .* (yObs .== 2) .+
     99 .* (yObs .== 3)
-
 sigmaMH = 0.1
 
 Gamma1_new, Gamma2_new, gLo_new, gHi_new, AcceptTemp =

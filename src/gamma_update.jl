@@ -1,6 +1,14 @@
 using Distributions
 using Random
+function r_rep(values, counts)
+    out = Float64[]
 
+    for i in eachindex(values)
+        append!(out, fill(values[i], counts[i]))
+    end
+
+    return out
+end
 function update_gamma(
     Gamma1,
     Gamma2,
@@ -31,8 +39,8 @@ function update_gamma(
         cdf.(Normal(), (CANDGamma1 .- Gamma2) ./ sigmaMH) .* (1 .- U)
     )
 
-    CANDGamma1Vector = repeat(CANDGamma1, inner = VoteN)
-    CANDGamma2Vector = repeat(CANDGamma2, inner = VoteN)
+    CANDGamma1Vector = r_rep(CANDGamma1, VoteN)
+    CANDGamma2Vector = r_rep(CANDGamma2, VoteN)
 
     CANDgLo =
         -99 .* (yObs .== 1) .+
@@ -74,8 +82,8 @@ function update_gamma(
     Gamma1_new = AcceptTemp .* CANDGamma1 .+ (1 .- AcceptTemp) .* Gamma1
     Gamma2_new = AcceptTemp .* CANDGamma2 .+ (1 .- AcceptTemp) .* Gamma2
 
-    Gamma1Vector = repeat(Gamma1_new, inner = VoteN)
-    Gamma2Vector = repeat(Gamma2_new, inner = VoteN)
+    Gamma1Vector = r_rep(Gamma1_new, VoteN)
+    Gamma2Vector = r_rep(Gamma2_new, VoteN)
 
     gLo_new =
         -99 .* (yObs .== 1) .+
