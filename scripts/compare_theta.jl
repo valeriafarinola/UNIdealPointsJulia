@@ -6,7 +6,7 @@ using DelimitedFiles
 println("Loading Julia theta estimates")
 
 ThetaJulia =
-    vec(readdlm("../output/ThetaEst_smoke_test.csv", ','))
+    vec(readdlm("../output/ThetaEst_intermediate.csv", ','))
 
 println(length(ThetaJulia))
 

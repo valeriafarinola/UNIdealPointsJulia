@@ -20,9 +20,9 @@ S2BetaPrior = 1.0
 
 Theta = zeros(length(IndN))
 
-Burn = 4
-Thin = 2
-K = 20
+Burn = 100
+Thin = 10
+K = 500
 
 SavedDraws = Int((K - Burn) / Thin)
 
@@ -144,7 +144,7 @@ println(length(ThetaEst))
 println(ThetaEst[1:10])
 mkpath("../output")
 
-writedlm("../output/ThetaEst_smoke_test.csv", ThetaEst, ",")
+writedlm("../output/ThetaEst_intermediate.csv", ThetaEst, ",")
 
-println("Theta estimates saved to output/ThetaEst_smoke_test.csv")
+println("Theta estimates saved to output/ThetaEst_intermediate.csv")
 println("Smoke test completed")
