@@ -19,7 +19,17 @@ S2BetaPrior = 1.0
 
 Theta = zeros(length(IndN))
 
-for iter in 1:20
+Burn = 4
+Thin = 2
+K = 20
+
+SavedDraws = Int((K - Burn) / Thin)
+
+ThetaStore = zeros(SavedDraws, length(Theta))
+
+save_index = 0
+
+for iter in 1:K
 
     global Theta
     global Gamma1
@@ -117,6 +127,18 @@ for iter in 1:20
     println("Theta mean: ", mean(Theta))
     println("Beta mean: ", mean(Beta))
     println("Gamma acceptance: ", mean(AcceptTemp))
-end
+        if iter > Burn && ((iter - Burn) % Thin == 0)
 
+        global save_index += 1
+
+        ThetaStore[save_index, :] = Theta
+
+        println("Saved draw: ", save_index)
+    end
+end
+ThetaEst = vec(mean(ThetaStore, dims = 1))
+
+println("Theta estimates computed")
+println(length(ThetaEst))
+println(ThetaEst[1:10])
 println("Smoke test completed")
