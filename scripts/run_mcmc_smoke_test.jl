@@ -6,6 +6,7 @@ include("load_inputs.jl")
 using Random
 using Statistics
 using LinearAlgebra
+using DelimitedFiles
 
 println("Starting MCMC smoke test")
 
@@ -141,4 +142,9 @@ ThetaEst = vec(mean(ThetaStore, dims = 1))
 println("Theta estimates computed")
 println(length(ThetaEst))
 println(ThetaEst[1:10])
+mkpath("../output")
+
+writedlm("../output/ThetaEst_smoke_test.csv", ThetaEst, ",")
+
+println("Theta estimates saved to output/ThetaEst_smoke_test.csv")
 println("Smoke test completed")
