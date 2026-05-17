@@ -90,3 +90,33 @@ Gamma1_new, Gamma2_new, gLo_new, gHi_new, AcceptTemp =
 println("Gamma update completed")
 println("Length Gamma1: ", length(Gamma1_new))
 println("Accepted gamma proposals: ", sum(AcceptTemp))
+ObsN = length(yObs)
+
+Z_new = update_z(
+    BetaVector,
+    ThetaVector,
+    gLo_new,
+    gHi_new,
+    ObsN
+)
+
+println("Z update completed")
+println(length(Z_new))
+println(Z_new[1:10])
+
+BetaPrior = 0.0
+S2BetaPrior = 1.0
+
+Beta_new, BetaVector_new, BetaMean_new, VarBeta_new =
+    update_beta(
+        ThetaVector,
+        Z_new,
+        VoteStartEnd,
+        VoteN,
+        BetaPrior,
+        S2BetaPrior
+    )
+
+println("Beta update completed")
+println(length(Beta_new))
+println(Beta_new[1:10])
