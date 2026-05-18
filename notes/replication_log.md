@@ -70,3 +70,83 @@ The script successfully produced:
 - `Length Theta: 6443`
 - `Mean Theta: approximately 0`
 - `Std Theta: 1`
+
+## Step 6: Translation of gamma update
+
+I translated the Metropolis-Hastings gamma threshold update from the original R/Rcpp implementation into Julia.
+
+This included:
+
+- proposal generation for `Gamma1` and `Gamma2`;
+- construction of observation-level threshold vectors;
+- likelihood ratio computation;
+- acceptance/rejection step.
+
+The Julia implementation successfully reproduced stable gamma acceptance rates around 0.70–0.75.
+
+## Step 7: Translation of latent Z and beta updates
+
+I implemented the remaining Gibbs sampling steps:
+
+- latent truncated-normal `Z` update;
+- beta posterior update;
+- observation-level beta vector reconstruction.
+
+All updates executed successfully on the original UN voting data.
+
+## Step 8: Full MCMC implementation in Julia
+
+I implemented the full Bayesian MCMC loop in Julia, including:
+
+- theta updates;
+- gamma updates;
+- latent Z updates;
+- beta updates;
+- burn-in handling;
+- thinning;
+- posterior draw storage.
+
+Smoke-test and intermediate runs were first executed on the `Important_Apr2020` dataset to validate numerical stability.
+
+## Step 9: Full replication on the All votes dataset
+
+I generated the intermediate `All_Apr2020` files using the original R script and then executed the full Julia implementation on the complete UN voting dataset using the original MCMC settings:
+
+- K = 20000
+- Burn = 4000
+- Thin = 50
+
+The Julia implementation successfully produced:
+
+- `ThetaEst_full_all.csv`
+
+containing 10469 estimated country-session ideal points.
+
+## Step 10: Replication of the P5 figure
+
+Using the Julia-estimated ideal points, I replicated the figure showing the trajectories of the five permanent members of the UN Security Council across UN General Assembly sessions.
+
+The replicated figure reproduced the main substantive dynamics of the original paper:
+
+- USA strongly positive;
+- USSR/Russia negative during the Cold War;
+- UK and France close to the USA;
+- China with a distinct transition after representation changes.
+
+The resulting figure was saved as:
+
+- `figures/p5_ideal_points_julia.png`
+
+## Step 11: Dyadic ideological distances
+
+I implemented the post-estimation dyadic distance computation described in `DyadicAgreementScores.R`.
+
+For each pair of countries within each UNGA session, ideological distance was computed as:
+
+distance(i,j) = |theta_i - theta_j|
+
+The resulting dyadic dataset was saved as:
+
+- `output/dyadic_distances_full_all.csv`
+
+containing 820874 dyadic observations.
