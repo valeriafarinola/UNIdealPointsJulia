@@ -1,0 +1,61 @@
+---
+title: "Replicating UN Voting Ideal Points in Julia"
+author: "Valeria Farinola"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    embed-resources: true
+---
+
+# Overview
+
+This project replicates the Bayesian ideal point estimation procedure from Bailey, Strezhnev, and Voeten (2017), *Estimating Dynamic State Preferences from United Nations Voting Data*.
+
+The goal is to reproduce the estimated United Nations voting ideal points using Julia, compute dyadic ideological distances, and replicate the figure showing the ideal points of the five permanent members of the UN Security Council.
+
+# Original paper and replication package
+
+The original replication package is available at:
+
+<https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points>
+
+# Replication goals
+
+The project has three main goals:
+
+1. Replicate the MCMC ideal point estimator implemented in `UN_Ideal_Rcpp.R`.
+2. Reproduce country-session ideal point estimates.
+3. Compute dyadic ideological distances and replicate the P5 (five permanent members of the UN Security Council) ideal points figure.
+
+# Model summary
+
+The estimator is a Bayesian ideal point model for United Nations voting data.
+
+Each country-session receives a latent ideal point, denoted as theta. Votes are modeled through a latent continuous variable and threshold parameters. The sampler updates theta, gamma thresholds, latent Z variables, and beta discrimination parameters.
+
+# Julia implementation
+
+The Julia implementation includes:
+
+- theta update;
+- dynamic lagged prior;
+- gamma threshold Metropolis-Hastings update;
+- latent Z update;
+- beta update;
+- MCMC loop with burn-in and thinning;
+- posterior storage;
+- ideal point export.
+
+# Main replication output
+
+The full All-votes MCMC run used:
+
+- K = 20000
+- Burn = 4000
+- Thin = 50
+
+The final Julia ideal point estimates are stored in:
+
+```text
+output/ThetaEst_full_all.csv
