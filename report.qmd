@@ -21,6 +21,12 @@ The original replication package is available at:
 
 <https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points>
 
+## Julia replication repository
+
+The Julia replication package developed for this project is available at:
+
+<https://github.com/valeriafarinola/UNIdealPointsJulia>
+
 # Replication goals
 
 The project has three main goals:
