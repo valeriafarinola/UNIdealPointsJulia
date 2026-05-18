@@ -1,5 +1,5 @@
 using Distributions
-using Random
+
 function r_rep(values, counts)
     out = Float64[]
 

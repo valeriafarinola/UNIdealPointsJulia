@@ -1,5 +1,5 @@
 using Distributions
-using Random
+
 
 function update_z(
     BetaVector,
