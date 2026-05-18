@@ -33,7 +33,8 @@ plt = plot(
     xlabel = "UNGA Session",
     ylabel = "Ideal Point",
     title = "P5 Ideal Points in the UN General Assembly",
-    legend = :bottomright
+    legend = :bottomright,
+    size = (1200, 700),
 )
 
 for country in unique(p5.Countryname)
