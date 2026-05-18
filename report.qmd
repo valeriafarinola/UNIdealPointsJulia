@@ -6,6 +6,7 @@ format:
     toc: true
     toc-depth: 3
     embed-resources: true
+output-file: index.html
 ---
 
 # Overview
