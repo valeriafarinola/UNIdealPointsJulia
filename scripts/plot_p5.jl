@@ -32,9 +32,9 @@ mkpath("../figures")
 plt = plot(
     xlabel = "UNGA Session",
     ylabel = "Ideal Point",
-    title = "P5 Ideal Points in the UN General Assembly",
+    title = "P5 Ideal Points: All Votes",
     legend = :bottomright,
-    size = (1200, 700),
+    size = (900, 600)
 )
 
 for country in unique(p5.Countryname)

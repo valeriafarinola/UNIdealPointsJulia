@@ -67,11 +67,11 @@ output/ThetaEst_full_all.csv
 
 ### Original replication output
 
-![](figures/Figure1All_Apr2020.png)
+![](figures/Figure1All_Apr2020.png){width=70%}
 
 ### Julia replication
 
-![](figures/p5_ideal_points_julia.png)
+![](figures/p5_ideal_points_julia.png){width=70%}
 
 The Julia replication reproduces the main substantive dynamics of the original replication output, including the relative positioning of the United States, USSR/Russia, China, the United Kingdom, and France across UNGA sessions.
 
@@ -79,11 +79,11 @@ The Julia replication reproduces the main substantive dynamics of the original r
 
 ### Original replication output
 
-![](figures/Figure1Important_Apr2020.png)
+![](figures/Figure1Important_Apr2020.png){width=70%}
 
 ### Julia replication
 
-![](figures/p5_ideal_points_julia_important.png)
+![](figures/p5_ideal_points_julia_important.png){width=70%}
 
 The Julia replication based on the Important-votes subset reproduces the broad structure of the original replication output while reflecting differences due to MCMC sampling variation and implementation details.
 
