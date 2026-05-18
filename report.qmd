@@ -57,5 +57,20 @@ The full All-votes MCMC run used:
 
 The final Julia ideal point estimates are stored in:
 
+
 ```text
 output/ThetaEst_full_all.csv
+```
+# Replicated P5 figures
+
+## All votes dataset
+
+The following figure shows the Julia replication of the P5 ideal point trajectories using the full UN voting dataset.
+
+![](figures/p5_ideal_points_julia.png)
+
+## Important votes dataset
+
+The following figure shows the Julia replication using only the Important votes dataset.
+
+![](figures/p5_ideal_points_julia_important.png)
