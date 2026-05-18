@@ -65,12 +65,56 @@ output/ThetaEst_full_all.csv
 
 ## All votes dataset
 
-The following figure shows the Julia replication of the P5 ideal point trajectories using the full UN voting dataset.
+### Original replication output
+
+![](figures/Figure1All_Apr2020.png)
+
+### Julia replication
 
 ![](figures/p5_ideal_points_julia.png)
 
+The Julia replication reproduces the main substantive dynamics of the original replication output, including the relative positioning of the United States, USSR/Russia, China, the United Kingdom, and France across UNGA sessions.
+
 ## Important votes dataset
 
-The following figure shows the Julia replication using only the Important votes dataset.
+### Original replication output
+
+![](figures/Figure1Important_Apr2020.png)
+
+### Julia replication
 
 ![](figures/p5_ideal_points_julia_important.png)
+
+The Julia replication based on the Important-votes subset reproduces the broad structure of the original replication output while reflecting differences due to MCMC sampling variation and implementation details.
+
+# Dyadic ideological distances
+
+Dyadic distances are computed as a post-estimation transformation:
+
+```text
+distance(i,j) = |theta_i - theta_j|
+```
+
+The dyadic distance output is stored in:
+
+```text
+output/dyadic_distances_full_all.csv
+```
+
+# Package tests
+
+The package includes a small test suite covering:
+
+- R-style repetition helper;
+- dyadic distance formula.
+
+The tests can be run with:
+
+```julia
+using Pkg
+Pkg.test()
+```
+
+# Conclusion
+
+The Julia implementation successfully reproduces the main computational steps of the original R/Rcpp estimator and generates ideal point estimates for the All-votes dataset. The replicated P5 figure reproduces the main substantive dynamics of the original paper.
