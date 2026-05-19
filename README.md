@@ -102,6 +102,28 @@ To run package tests:
 ```julia
 Pkg.test()
 ```
+### Smoke test
+
+A lightweight MCMC smoke test is provided in:
+
+```text
+scripts/run_mcmc_smoke_test.jl
+```
+
+The smoke test runs the full Bayesian sampling pipeline with a substantially
+smaller number of iterations than the full replication runs.
+
+Its purpose is to quickly verify that:
+
+- the sampler executes successfully;
+- all update steps are functioning correctly;
+- the repository environment and dependencies are configured properly.
+
+The smoke test is intended for diagnostic and reproducibility verification
+purposes only. Final replication results are produced by:
+
+- `scripts/run_mcmc_full.jl`
+- `scripts/run_mcmc_full_all.jl`
 
 To access the package entry point:
 
@@ -110,6 +132,7 @@ using UNIdealPointsJulia
 
 UNIdealPointsJulia.run()
 ```
+
 
 ## Original source
 

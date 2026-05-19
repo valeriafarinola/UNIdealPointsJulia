@@ -31,6 +31,9 @@ function run()
     println(" - scripts/compute_dyadic_distances.jl")
     println()
 
+    println("Diagnostic scripts:")
+    println(" - scripts/run_mcmc_smoke_test.jl")
+    
     println("Online report:")
     println("https://valeriafarinola.github.io/UNIdealPointsJulia/")
 

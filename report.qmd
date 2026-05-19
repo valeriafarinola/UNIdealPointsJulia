@@ -154,6 +154,8 @@ The tests can be run with:
 using Pkg
 Pkg.test()
 ```
+In addition to unit tests, the repository also includes a lightweight MCMC smoke test (`scripts/run_mcmc_smoke_test.jl`) for quickly verifying end-to-end sampler execution and repository reproducibility.
+
 
 # Conclusion
 
