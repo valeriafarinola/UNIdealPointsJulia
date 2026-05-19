@@ -5,6 +5,22 @@ Julia replication of the Bayesian ideal point estimator from:
 Bailey, Strezhnev, and Voeten (2017),
 "Estimating Dynamic State Preferences from United Nations Voting Data".
 
+## Online report
+
+Project documentation and replication report:
+
+<https://valeriafarinola.github.io/UNIdealPointsJulia/>
+
+## Quick start
+
+```julia
+using UNIdealPointsJulia
+
+UNIdealPointsJulia.run()
+```
+
+This prints the main replication scripts and the link to the online report.
+
 ## Goal
 
 This project aims to:
@@ -69,4 +85,4 @@ The Julia implementation successfully reproduces the main dynamics of the origin
 ## Original source
 
 Original R/Rcpp implementation:
-https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points
+<https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points>
