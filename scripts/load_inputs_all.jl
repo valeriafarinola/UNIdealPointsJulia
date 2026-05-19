@@ -6,62 +6,63 @@ using DelimitedFiles
 # the processed matrices, vectors, starting values, and indexing structures
 # saved by the original R code in the Output/ folder.
 
-const R_OUTPUT_PATH = raw"C:\Users\HP 14-DW1012NL\Desktop\COMPUTATIONAL\United-Nations-General-Assembly-Votes-and-Ideal-Points-master\United-Nations-General-Assembly-Votes-and-Ideal-Points-master\Output"
+const DATA_PATH = joinpath(@__DIR__, "..", "data")
 
-function load_r_output(filename)
-    return readdlm(joinpath(R_OUTPUT_PATH, filename))
+function load_data_file(filename)
+    return readdlm(joinpath(DATA_PATH, filename))
 end
 
 # Country-session by observation index matrix.
 # Used to map country-session ideal points to observation-level vote data.
 
-IObsMat = load_r_output("IObsMat_All_Apr2020.txt")
+IObsMat = load_data_file("IObsMat_All_Apr2020.txt")
 
 # Number of observed votes for each country-session.
 
-IndN = vec(load_r_output("IndN_All_Apr2020.txt"))
+IndN = vec(load_data_file("IndN_All_Apr2020.txt"))
 IndN = Int.(IndN)
 
 # Initial parameter values loaded from the original R replication package.
 # These objects are used to initialize the Julia MCMC estimation procedure.
 
-BetaVector = vec(load_r_output("BetaVectorSaveRW_All_Apr2020.txt"))
+BetaVector = vec(load_data_file("BetaVectorSaveRW_All_Apr2020.txt"))
 
-Z = vec(load_r_output("ZSaveRW_All_Apr2020.txt"))
+Z = vec(load_data_file("ZSaveRW_All_Apr2020.txt"))
 
-SmoothVector = vec(load_r_output("SmoothVector_All_Apr2020.txt"))
+SmoothVector = vec(load_data_file("SmoothVector_All_Apr2020.txt"))
 
-# Country and session identifiers used for the dynamic prior.
+# Country and UN General Assembly session identifiers
+# associated with each country-session observation.
 
-CountryList = vec(load_r_output("CountryList_All_Apr2020.txt"))
+CountryList = vec(load_data_file("CountryList_All_Apr2020.txt"))
 
-SessionList = vec(load_r_output("SessionList_All_Apr2020.txt"))
+SessionList = vec(load_data_file("SessionList_All_Apr2020.txt"))
 
 # GapYear identifies breaks in the country-session time series.
 # TRUE indicates a temporal gap between consecutive observations.
 # Convert string values from the original R output into Julia Bool values.
 
-GapYear = vec(load_r_output("GapYear_All_Apr2020.txt"))
+GapYear = vec(load_data_file("GapYear_All_Apr2020.txt"))
 GapYear = GapYear .== "TRUE"
 
 # Vote-level threshold parameters.
 
-Gamma1 = vec(load_r_output("Gamma1RW_All_Apr2020.txt"))
+Gamma1 = vec(load_data_file("Gamma1RW_All_Apr2020.txt"))
 
-Gamma2 = vec(load_r_output("Gamma2RW_All_Apr2020.txt"))
+Gamma2 = vec(load_data_file("Gamma2RW_All_Apr2020.txt"))
 
 # Vote-level indexing: number of observations per vote and start/end rows
 
-VoteN = vec(load_r_output("VoteN_All_Apr2020.txt"))
+VoteN = vec(load_data_file("VoteN_All_Apr2020.txt"))
 VoteN = Int.(VoteN)
 
-VoteStartEnd = load_r_output("VoteStartEnd_All_Apr2020.txt")
+VoteStartEnd = load_data_file("VoteStartEnd_All_Apr2020.txt")
 VoteStartEnd = Int.(VoteStartEnd)
 
 # Observed vote categories.
 # Column 6 of AllData contains the observed vote code used by the sampler.
 
-AllData = load_r_output("AllData_All_Apr2020.txt")
+AllData = load_data_file("AllData_All_Apr2020.txt")
 yObs = Int.(AllData[:, 6])
 
 println("Loaded All inputs")

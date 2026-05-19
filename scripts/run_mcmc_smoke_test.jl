@@ -1,3 +1,15 @@
+# Fast diagnostic MCMC smoke test for the Important-votes dataset.
+#
+# This script runs the same sampler as the full replication scripts, but with
+# substantially fewer iterations:
+#
+#   K = 500
+#   Burn = 100
+#   Thin = 10
+#
+# It is intended only to check that the MCMC pipeline executes successfully.
+# It is not used to produce the final reported estimates or figures.
+
 include("../src/UNIdealPointsJulia.jl")
 using .UNIdealPointsJulia
 
@@ -142,9 +154,16 @@ ThetaEst = vec(mean(ThetaStore, dims = 1))
 println("Theta estimates computed")
 println(length(ThetaEst))
 println(ThetaEst[1:10])
-mkpath("../output")
+OUTPUT_PATH = joinpath(@__DIR__, "..", "output")
+mkpath(OUTPUT_PATH)
 
-writedlm("../output/ThetaEst_intermediate.csv", ThetaEst, ",")
+output_file = joinpath(
+    OUTPUT_PATH,
+    "ThetaEst_smoke_test.csv"
+)
 
-println("Theta estimates saved to output/ThetaEst_intermediate.csv")
+writedlm(output_file, ThetaEst, ",")
+
+println("Theta estimates saved to:")
+println(output_file)
 println("Smoke test completed")

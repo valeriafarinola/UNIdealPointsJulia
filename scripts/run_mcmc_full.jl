@@ -1,3 +1,17 @@
+# This script runs the full Bayesian MCMC estimation procedure for the
+# Important-votes dataset.
+#
+# The sampler is the same as the one used in:
+#
+#   scripts/run_mcmc_full_all.jl
+#
+# The only difference is that this script loads the Important-votes inputs
+# through scripts/load_inputs.jl, while run_mcmc_full_all.jl loads the
+# All-votes inputs through scripts/load_inputs_all.jl.
+#
+# For detailed comments on the MCMC update sequence, see:
+#
+#   scripts/run_mcmc_full_all.jl
 include("../src/UNIdealPointsJulia.jl")
 using .UNIdealPointsJulia
 
@@ -142,9 +156,16 @@ ThetaEst = vec(mean(ThetaStore, dims = 1))
 println("Theta estimates computed")
 println(length(ThetaEst))
 println(ThetaEst[1:10])
-mkpath("../output")
+OUTPUT_PATH = joinpath(@__DIR__, "..", "output")
+mkpath(OUTPUT_PATH)
 
-writedlm("../output/ThetaEst_full.csv", ThetaEst, ",")
+output_file = joinpath(
+    OUTPUT_PATH,
+    "ThetaEst_full.csv"
+)
 
-println("Theta estimates saved to output/ThetaEst_full.csv")
-println("Smoke test completed")
+writedlm(output_file, ThetaEst, ",")
+
+println("Theta estimates saved to:")
+println(output_file)
+println("Full MCMC run completed")

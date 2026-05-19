@@ -82,14 +82,24 @@ The Julia implementation successfully reproduces the main dynamics of the origin
 - `scripts/` → executable replication scripts
 - `notes/` → replication log and implementation notes
 
+### Repository portability
+
+All scripts use repository-relative paths based on `@__DIR__`, so they can be executed from the repository root without depending on machine-specific file paths.
+
 ## Reproducibility
 
-To instantiate the Julia environment and run package tests:
+To activate the project environment and install all required packages:
 
 ```julia
 using Pkg
 
+Pkg.activate(".")
 Pkg.instantiate()
+```
+
+To run package tests:
+
+```julia
 Pkg.test()
 ```
 

@@ -3,31 +3,45 @@ using DataFrames
 using Plots
 using DelimitedFiles
 
-println("Loading metadata from R output")
+# This script reproduces the P5 ideal point figure for the All-votes dataset.
+# It combines:
+#   1. metadata from the original replication output;
+#   2. Julia-estimated ideal points from output/ThetaEst_full_all.csv.
+#
+# Paths are built relative to the location of this script, so the script can be
+# run from the repository root or from inside the scripts/ folder.
 
-R_OUTPUT_PATH =
-raw"C:\Users\HP 14-DW1012NL\Desktop\COMPUTATIONAL\United-Nations-General-Assembly-Votes-and-Ideal-Points-master\United-Nations-General-Assembly-Votes-and-Ideal-Points-master\Output"
+const DATA_PATH = joinpath(@__DIR__, "..", "data")
+const OUTPUT_PATH = joinpath(@__DIR__, "..", "output")
+const FIGURES_PATH = joinpath(@__DIR__, "..", "figures")
+
+println("Loading metadata from processed replication output")
 
 meta = CSV.read(
-    joinpath(R_OUTPUT_PATH, "IdealpointestimatesAll_Apr2020.csv"),
+    joinpath(DATA_PATH, "IdealpointestimatesAll_Apr2020.csv"),
     DataFrame
 )
 
-println("Loading Julia ideal points")
+println("Loading Julia ideal point estimates")
 
-theta_julia = vec(readdlm("../output/ThetaEst_full_all.csv", ','))
+theta_path = joinpath(OUTPUT_PATH, "ThetaEst_full_all.csv")
+theta_julia = vec(readdlm(theta_path, ','))
 
 println(length(theta_julia))
 println(nrow(meta))
 
+# Attach Julia ideal point estimates to the metadata table.
+# The matching is by row order: each row is one country-session observation.
 meta.JuliaIdealPoint = theta_julia
 
+# Country codes for the five permanent members of the UN Security Council:
+# USA, UK, China, USSR/Russia, France.
 p5_codes = [2, 200, 220, 365, 710]
 p5 = filter(row -> row.ccode in p5_codes, meta)
 
 sort!(p5, [:Countryname, :session])
 
-mkpath("../figures")
+mkpath(FIGURES_PATH)
 
 plt = plot(
     xlabel = "UNGA Session",
@@ -49,7 +63,8 @@ for country in unique(p5.Countryname)
     )
 end
 
-savefig(plt, "../figures/p5_ideal_points_julia.png")
+figure_path = joinpath(FIGURES_PATH, "p5_ideal_points_julia.png")
+savefig(plt, figure_path)
 
 println("Saved figure:")
-println("../figures/p5_ideal_points_julia.png")
+println(figure_path)
