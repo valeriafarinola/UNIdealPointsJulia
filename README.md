@@ -82,6 +82,25 @@ The Julia implementation successfully reproduces the main dynamics of the origin
 - `scripts/` → executable replication scripts
 - `notes/` → replication log and implementation notes
 
+## Reproducibility
+
+To instantiate the Julia environment and run package tests:
+
+```julia
+using Pkg
+
+Pkg.instantiate()
+Pkg.test()
+```
+
+To access the package entry point:
+
+```julia
+using UNIdealPointsJulia
+
+UNIdealPointsJulia.run()
+```
+
 ## Original source
 
 Original R/Rcpp implementation:
