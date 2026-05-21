@@ -7,9 +7,8 @@ using DelimitedFiles
 # It combines:
 #   1. metadata from the original replication output;
 #   2. Julia-estimated ideal points from output/ThetaEst_full.csv.
-#
-# Paths are built relative to the location of this script, so the script can be
-# run from the repository root or from inside the scripts/ folder.
+
+
 
 const DATA_PATH = joinpath(@__DIR__, "..", "data")
 const OUTPUT_PATH = joinpath(@__DIR__, "..", "output")
