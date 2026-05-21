@@ -2216,6 +2216,24 @@ vertical-align: -.125em;
   <li><a href="#replication-goals" id="toc-replication-goals" class="nav-link" data-scroll-target="#replication-goals">Replication goals</a></li>
   <li><a href="#model-summary" id="toc-model-summary" class="nav-link" data-scroll-target="#model-summary">Model summary</a></li>
   <li><a href="#julia-implementation" id="toc-julia-implementation" class="nav-link" data-scroll-target="#julia-implementation">Julia implementation</a></li>
+  <li><a href="#replication-interface" id="toc-replication-interface" class="nav-link" data-scroll-target="#replication-interface">Replication interface</a>
+  <ul class="collapse">
+  <li><a href="#replication-examples" id="toc-replication-examples" class="nav-link" data-scroll-target="#replication-examples">Replication examples</a>
+  <ul class="collapse">
+  <li><a href="#smoke-test-on-the-all-votes-dataset" id="toc-smoke-test-on-the-all-votes-dataset" class="nav-link" data-scroll-target="#smoke-test-on-the-all-votes-dataset">Smoke test on the All-votes dataset</a></li>
+  <li><a href="#smoke-test-on-the-important-votes-dataset" id="toc-smoke-test-on-the-important-votes-dataset" class="nav-link" data-scroll-target="#smoke-test-on-the-important-votes-dataset">Smoke test on the Important-votes dataset</a></li>
+  <li><a href="#full-replication-on-the-important-votes-dataset" id="toc-full-replication-on-the-important-votes-dataset" class="nav-link" data-scroll-target="#full-replication-on-the-important-votes-dataset">Full replication on the Important-votes dataset</a></li>
+  <li><a href="#full-replication-on-the-all-votes-dataset" id="toc-full-replication-on-the-all-votes-dataset" class="nav-link" data-scroll-target="#full-replication-on-the-all-votes-dataset">Full replication on the All-votes dataset</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">Repository structure</a>
+  <ul class="collapse">
+  <li><a href="#wrapper-and-post-processing-scripts" id="toc-wrapper-and-post-processing-scripts" class="nav-link" data-scroll-target="#wrapper-and-post-processing-scripts">Wrapper and post-processing scripts</a>
+  <ul class="collapse">
+  <li><a href="#wrapper-scripts" id="toc-wrapper-scripts" class="nav-link" data-scroll-target="#wrapper-scripts">Wrapper scripts</a></li>
+  <li><a href="#post-processing-scripts" id="toc-post-processing-scripts" class="nav-link" data-scroll-target="#post-processing-scripts">Post-processing scripts</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#main-replication-output" id="toc-main-replication-output" class="nav-link" data-scroll-target="#main-replication-output">Main replication output</a></li>
   <li><a href="#replicated-p5-figures" id="toc-replicated-p5-figures" class="nav-link" data-scroll-target="#replicated-p5-figures">Replicated P5 figures</a>
   <ul class="collapse">
@@ -2306,6 +2324,135 @@ vertical-align: -.125em;
 <li>ideal point export.</li>
 </ul>
 </section>
+<section id="replication-interface" class="level1">
+<h1>Replication interface</h1>
+<p>The Julia replication package is organized around a single master replication function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(; dataset, test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The function supports:</p>
+<ul>
+<li>multiple datasets:
+<ul>
+<li><code>dataset = :all</code></li>
+<li><code>dataset = :important</code></li>
+</ul></li>
+<li>multiple execution modes:
+<ul>
+<li><code>test = true</code>
+<ul>
+<li>lightweight smoke test;</li>
+</ul></li>
+<li><code>test = false</code>
+<ul>
+<li>full Bayesian MCMC replication.</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="replication-examples" class="level2">
+<h2 class="anchored" data-anchor-id="replication-examples">Replication examples</h2>
+<section id="smoke-test-on-the-all-votes-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="smoke-test-on-the-all-votes-dataset">Smoke test on the All-votes dataset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="smoke-test-on-the-important-votes-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="smoke-test-on-the-important-votes-dataset">Smoke test on the Important-votes dataset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>important,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="full-replication-on-the-important-votes-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="full-replication-on-the-important-votes-dataset">Full replication on the Important-votes dataset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>important,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="full-replication-on-the-all-votes-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="full-replication-on-the-all-votes-dataset">Full replication on the All-votes dataset</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The full estimation logic is implemented in:</p>
+<pre class="text"><code>src/replication.jl</code></pre>
+<p>while the <code>scripts/</code> directory contains lightweight wrapper scripts calling the main replication API.</p>
+</section>
+</section>
+</section>
+<section id="repository-structure" class="level1">
+<h1>Repository structure</h1>
+<p>The repository is organized into four main components:</p>
+<ul>
+<li><code>src/</code>
+<ul>
+<li>core Julia functions implementing the Bayesian ideal point estimator;</li>
+</ul></li>
+<li><code>scripts/</code>
+<ul>
+<li>lightweight wrapper scripts and post-processing utilities;</li>
+</ul></li>
+<li><code>data/</code>
+<ul>
+<li>processed intermediate inputs generated by the original R/Rcpp replication package;</li>
+</ul></li>
+<li><code>output/</code>
+<ul>
+<li>generated Julia estimation outputs and dyadic ideological distances.</li>
+</ul></li>
+</ul>
+<section id="wrapper-and-post-processing-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="wrapper-and-post-processing-scripts">Wrapper and post-processing scripts</h2>
+<section id="wrapper-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="wrapper-scripts">Wrapper scripts</h3>
+<ul>
+<li><code>run_mcmc_smoke_test.jl</code>
+<ul>
+<li>lightweight smoke-test replication for the All-votes dataset;</li>
+</ul></li>
+<li><code>run_mcmc_full.jl</code>
+<ul>
+<li>full MCMC replication for the Important-votes dataset;</li>
+</ul></li>
+<li><code>run_mcmc_full_all.jl</code>
+<ul>
+<li>full MCMC replication for the All-votes dataset.</li>
+</ul></li>
+</ul>
+</section>
+<section id="post-processing-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="post-processing-scripts">Post-processing scripts</h3>
+<ul>
+<li><code>plot_p5.jl</code>
+<ul>
+<li>reproduces the P5 ideal point figure for the All-votes dataset;</li>
+</ul></li>
+<li><code>plot_p5_important.jl</code>
+<ul>
+<li>reproduces the P5 ideal point figure for the Important-votes dataset;</li>
+</ul></li>
+<li><code>compute_dyadic_distances.jl</code>
+<ul>
+<li>computes pairwise ideological distances between countries within each UNGA session;</li>
+</ul></li>
+<li><code>compare_theta.jl</code>
+<ul>
+<li>compares Julia-estimated ideal points against the original R replication output.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="main-replication-output" class="level1">
 <h1>Main replication output</h1>
 <p>The full All-votes MCMC run used:</p>
@@ -2313,6 +2460,12 @@ vertical-align: -.125em;
 <li>K = 20000</li>
 <li>Burn = 4000</li>
 <li>Thin = 50</li>
+</ul>
+<p>The package also supports:</p>
+<ul>
+<li>lightweight smoke-test runs;</li>
+<li>full Important-votes replications;</li>
+<li>full All-votes replications.</li>
 </ul>
 <p>The final Julia ideal point estimates are stored in:</p>
 <pre class="text"><code>output/ThetaEst_full_all.csv</code></pre>
@@ -2359,12 +2512,27 @@ vertical-align: -.125em;
 <li>dyadic distance formula.</li>
 </ul>
 <p>The tests can be run with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">test</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">test</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In addition to unit tests, the repository also includes a lightweight end-to-end MCMC smoke test for validating:</p>
+<ul>
+<li>repository portability;</li>
+<li>dependency configuration;</li>
+<li>sampler execution;</li>
+<li>replication reproducibility.</li>
+</ul>
+<p>The smoke test can be executed through:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or equivalently:</p>
+<pre class="text"><code>scripts/run_mcmc_smoke_test.jl</code></pre>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>The Julia implementation successfully reproduces the main computational steps of the original R/Rcpp estimator and generates ideal point estimates for the All-votes dataset. The replicated P5 figure reproduces the main substantive dynamics of the original paper.</p>
+<p>The final repository structure follows a replication-package design centered around a reusable master replication interface and lightweight execution wrappers.</p>
 </section>
 
 </main>
