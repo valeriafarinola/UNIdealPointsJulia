@@ -73,10 +73,13 @@
 # The full run reproduces the final estimation outputs reported in the
 # replication report and associated figures.
 
+import Random
 using Statistics
 using DelimitedFiles
 
+
 function run_replication(; dataset = :all, test = true)
+    Random.seed!(123)
 
     # Validate dataset selection.
     if !(dataset in (:all, :important))
@@ -220,7 +223,7 @@ function run_replication(; dataset = :all, test = true)
         # Draw theta values from the conditional Gaussian posterior.
         Theta =
             ThetaMean .+
-            sqrt.(VarTheta) .* randn(length(ThetaMean))
+            sqrt.(VarTheta) .* Random.randn(length(ThetaMean))
 
         # Apply truncation and normalization used in the original estimator.
         Theta = clamp.(Theta, -5, 5)

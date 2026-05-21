@@ -3,7 +3,7 @@
 Julia replication of the Bayesian ideal point estimator from:
 
 Bailey, Strezhnev, and Voeten (2017),  
-"Estimating Dynamic State Preferences from United Nations Voting Data".
+*Estimating Dynamic State Preferences from United Nations Voting Data*.
 
 ## Online report
 
@@ -13,9 +13,9 @@ Project documentation and replication report:
 
 ---
 
-## Quick start
+# Installation
 
-Activate the project environment and install dependencies:
+Clone the repository and activate the Julia environment:
 
 ```julia
 using Pkg
@@ -30,57 +30,35 @@ Load the package:
 using UNIdealPointsJulia
 ```
 
-Display the package entry point and replication instructions:
-
-```julia
-UNIdealPointsJulia.run()
-```
-
 ---
 
-## Main replication interface
+# Main replication interface
 
-The replication package is organized around the function:
+The project is organized around:
 
 ```julia
 UNIdealPointsJulia.run_replication(; dataset, test)
 ```
 
-### Arguments
+Arguments:
 
-#### Dataset selection
+- `dataset = :all`
+  - All-votes dataset;
 
-```julia
-dataset = :all
-```
+- `dataset = :important`
+  - Important-votes dataset;
 
-Uses the All-votes dataset.
+- `test = true`
+  - lightweight smoke test;
 
-```julia
-dataset = :important
-```
-
-Uses the Important-votes dataset.
-
-#### Execution mode
-
-```julia
-test = true
-```
-
-Runs a lightweight smoke test with a reduced number of MCMC iterations.
-
-```julia
-test = false
-```
-
-Runs the full Bayesian MCMC replication.
+- `test = false`
+  - full MCMC replication.
 
 ---
 
-## Replication examples
+# Main commands
 
-### Smoke test on the All-votes dataset
+## Smoke test
 
 ```julia
 using UNIdealPointsJulia
@@ -91,18 +69,7 @@ UNIdealPointsJulia.run_replication(
 )
 ```
 
-### Smoke test on the Important-votes dataset
-
-```julia
-using UNIdealPointsJulia
-
-UNIdealPointsJulia.run_replication(
-    dataset = :important,
-    test = true
-)
-```
-
-### Full replication on the Important-votes dataset
+## Full replication — Important votes
 
 ```julia
 using UNIdealPointsJulia
@@ -113,7 +80,7 @@ UNIdealPointsJulia.run_replication(
 )
 ```
 
-### Full replication on the All-votes dataset
+## Full replication — All votes
 
 ```julia
 using UNIdealPointsJulia
@@ -126,167 +93,67 @@ UNIdealPointsJulia.run_replication(
 
 ---
 
-## Goal
+# Wrapper scripts
 
-This project aims to:
-
-1. replicate the original R/Rcpp estimator in Julia;
-2. reproduce the estimated UN voting ideal points;
-3. compute dyadic ideological distances;
-4. reproduce the main figures from the paper.
-
----
-
-## Current status
-
-Implemented and replicated:
-
-- full Bayesian MCMC estimator in Julia;
-- theta update step;
-- gamma threshold update step;
-- latent Z update step;
-- beta update step;
-- lagged theta prior construction;
-- theta normalization;
-- full MCMC loop with burn-in and thinning;
-- replication of ideal point estimates for:
-  - Important votes dataset;
-  - All votes dataset;
-- replication of the P5 ideal points figure from the original paper;
-- computation of dyadic ideological distances between countries.
-
----
-
-## Main outputs
-
-Main generated outputs:
-
-- `output/ThetaEst_full_all.csv`
-  - final Julia ideal point estimates for the All-votes dataset;
-
-- `output/ThetaEst_full.csv`
-  - final Julia ideal point estimates for the Important-votes dataset;
-
-- `output/dyadic_distances_full_all.csv`
-  - pairwise ideological distances between countries within each UNGA session;
-
-- `figures/p5_ideal_points_julia.png`
-  - Julia replication of the P5 ideal points figure.
-
----
-
-## Wrapper scripts
-
-The `scripts/` directory contains lightweight wrapper scripts calling the
-main replication API implemented in:
-
-```text
-src/replication.jl
-```
-
-Available wrappers:
-
-- `scripts/run_mcmc_smoke_test.jl`
-- `scripts/run_mcmc_full.jl`
-- `scripts/run_mcmc_full_all.jl`
-
-Additional post-processing scripts:
-
-- `scripts/plot_p5.jl`
-- `scripts/plot_p5_important.jl`
-- `scripts/compute_dyadic_distances.jl`
-
----
-
-## Repository structure
-
-- `src/`
-  - core Julia source code and replication logic;
-
-- `scripts/`
-  - lightweight executable wrapper scripts;
-
-- `output/`
-  - generated MCMC estimates and replication outputs;
-
-- `figures/`
-  - replicated figures from the paper;
-
-- `notes/`
-  - replication logs and implementation notes.
-
----
-
-## Repository portability
-
-All scripts use repository-relative paths based on `@__DIR__`, so the
-repository can be executed without machine-specific file paths.
-
----
-
-## Reproducibility
-
-To run package tests:
-
-```julia
-Pkg.test()
-```
-
-### Smoke test
-
-A lightweight MCMC smoke test is provided through:
-
-```julia
-UNIdealPointsJulia.run_replication(
-    dataset = :all,
-    test = true
-)
-```
-
-or equivalently:
+The same runs can also be executed through the wrapper scripts:
 
 ```text
 scripts/run_mcmc_smoke_test.jl
+scripts/run_mcmc_full.jl
+scripts/run_mcmc_full_all.jl
 ```
 
-The smoke test runs the full Bayesian sampling pipeline with a substantially
-smaller number of iterations than the full replication runs.
+Example:
 
-Its purpose is to verify that:
+```bash
+julia --project=. scripts/run_mcmc_full_all.jl
+```
 
-- the sampler executes successfully;
-- all update steps are functioning correctly;
-- the repository environment and dependencies are configured properly.
+---
 
-The smoke test is intended for diagnostic and reproducibility verification
-purposes only.
+# Repository structure
 
-Final replication results are produced by:
+```text
+UNIdealPointsJulia/
+│
+├── src/
+├── scripts/
+├── data/
+├── output/
+├── figures/
+├── notes/
+├── report.qmd
+├── README.md
+└── Project.toml
+```
+
+---
+
+# Main outputs
+
+Main generated outputs:
+
+```text
+output/ThetaEst_full.csv
+output/ThetaEst_full_all.csv
+output/dyadic_distances_full_all.csv
+figures/p5_ideal_points_julia.png
+```
+
+---
+
+# Package tests
+
+Run package tests with:
 
 ```julia
-UNIdealPointsJulia.run_replication(
-    dataset = :important,
-    test = false
-)
-
-UNIdealPointsJulia.run_replication(
-    dataset = :all,
-    test = false
-)
+using Pkg
+Pkg.test()
 ```
 
 ---
 
-## Replication result
-
-The Julia implementation successfully reproduces the main dynamics of the
-original R/Rcpp implementation from Bailey, Strezhnev, and Voeten (2017),
-including the temporal trajectories of the five permanent members of the
-UN Security Council.
-
----
-
-## Original source
+# Original source
 
 Original R/Rcpp implementation:
 
