@@ -15,12 +15,16 @@ Project documentation and replication report:
 
 # Installation
 
-Clone the repository and activate the Julia environment:
+From the repository root, start Julia with:
+
+```bash
+julia --project=.
+```
+
+Then instantiate the project environment:
 
 ```julia
 using Pkg
-
-Pkg.activate(".")
 Pkg.instantiate()
 ```
 
@@ -28,6 +32,12 @@ Load the package:
 
 ```julia
 using UNIdealPointsJulia
+```
+
+Print the package entry point and available replication commands:
+
+```julia
+UNIdealPointsJulia.run()
 ```
 
 ---
@@ -61,8 +71,6 @@ Arguments:
 ## Smoke test
 
 ```julia
-using UNIdealPointsJulia
-
 UNIdealPointsJulia.run_replication(
     dataset = :all,
     test = true
@@ -72,8 +80,6 @@ UNIdealPointsJulia.run_replication(
 ## Full replication — Important votes
 
 ```julia
-using UNIdealPointsJulia
-
 UNIdealPointsJulia.run_replication(
     dataset = :important,
     test = false
@@ -83,8 +89,6 @@ UNIdealPointsJulia.run_replication(
 ## Full replication — All votes
 
 ```julia
-using UNIdealPointsJulia
-
 UNIdealPointsJulia.run_replication(
     dataset = :all,
     test = false
@@ -93,9 +97,34 @@ UNIdealPointsJulia.run_replication(
 
 ---
 
+# Generate figures
+
+After running the corresponding full replication, figures can be generated from the repository root.
+
+Important-votes figure:
+
+```bash
+julia --project=. scripts/plot_p5_important.jl
+```
+
+All-votes figure:
+
+```bash
+julia --project=. scripts/plot_p5.jl
+```
+
+The plotting scripts require the corresponding full MCMC output files:
+
+```text
+output/ThetaEst_full.csv
+output/ThetaEst_full_all.csv
+```
+
+---
+
 # Wrapper scripts
 
-The same runs can also be executed through the wrapper scripts:
+The same MCMC runs can also be executed through wrapper scripts:
 
 ```text
 scripts/run_mcmc_smoke_test.jl
@@ -131,13 +160,12 @@ UNIdealPointsJulia/
 
 # Main outputs
 
-Main generated outputs:
-
 ```text
 output/ThetaEst_full.csv
 output/ThetaEst_full_all.csv
 output/dyadic_distances_full_all.csv
 figures/p5_ideal_points_julia.png
+figures/p5_ideal_points_julia_important.png
 ```
 
 ---

@@ -68,3 +68,4 @@ savefig(plt, figure_path)
 
 println("Saved figure:")
 println(figure_path)
+display(plt)

@@ -1,11 +1,15 @@
 ---
 title: "Replicating UN Voting Ideal Points in Julia"
 author: "Valeria Farinola"
+affiliation: "Collegio Carlo Alberto"
+email: "valeria.farinola@carloalberto.org"
+
 format:
   html:
     toc: true
     toc-depth: 3
     embed-resources: true
+
 output-file: index.html
 ---
 
