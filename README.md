@@ -25,6 +25,7 @@ Then instantiate the project environment:
 
 ```julia
 using Pkg
+Pkg.activate(".")
 Pkg.instantiate()
 ```
 
@@ -172,15 +173,23 @@ figures/p5_ideal_points_julia_important.png
 
 # Package tests
 
-Run package tests with:
+From the repository root, start Julia with:
+
+```bash
+julia --project=.
+```
+
+Then run:
 
 ```julia
 using Pkg
+
+Pkg.instantiate()
+
 Pkg.test()
 ```
 
 ---
-
 # Original source
 
 Original R/Rcpp implementation:
