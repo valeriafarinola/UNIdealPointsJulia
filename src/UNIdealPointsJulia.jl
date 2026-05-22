@@ -1,4 +1,12 @@
+__precompile__(false)
 module UNIdealPointsJulia
+# Load package source files.
+include("populate_theta_vector.jl")
+include("theta_update.jl")
+include("lag_prior.jl")
+include("gamma_update.jl")
+include("beta_update.jl")
+include("replication.jl")
 
 # Export core estimation and replication functions.
 export populate_theta_vector
@@ -10,13 +18,7 @@ export update_beta
 export run
 export run_replication
 
-# Load package source files.
-include("populate_theta_vector.jl")
-include("theta_update.jl")
-include("lag_prior.jl")
-include("gamma_update.jl")
-include("beta_update.jl")
-include("replication.jl")
+
 
 # Package entry point displaying replication workflow information.
 function run()
