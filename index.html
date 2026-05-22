@@ -2208,27 +2208,32 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#original-replication-package" id="toc-original-replication-package" class="nav-link" data-scroll-target="#original-replication-package">Original replication package</a>
+  <li><a href="#replicating-un-voting-ideal-points-in-julia" id="toc-replicating-un-voting-ideal-points-in-julia" class="nav-link active" data-scroll-target="#replicating-un-voting-ideal-points-in-julia">Replicating UN Voting Ideal Points in Julia</a></li>
+  <li><a href="#author" id="toc-author" class="nav-link" data-scroll-target="#author">Author</a></li>
+  <li><a href="#original-paper-and-replication-package" id="toc-original-paper-and-replication-package" class="nav-link" data-scroll-target="#original-paper-and-replication-package">Original Paper and Replication Package</a></li>
+  <li><a href="#high-level-description-of-computational-problem" id="toc-high-level-description-of-computational-problem" class="nav-link" data-scroll-target="#high-level-description-of-computational-problem">High Level Description of Computational Problem</a></li>
+  <li><a href="#replication-goals" id="toc-replication-goals" class="nav-link" data-scroll-target="#replication-goals">Replication Goals</a></li>
+  <li><a href="#julia-implementation" id="toc-julia-implementation" class="nav-link" data-scroll-target="#julia-implementation">Julia Implementation</a></li>
+  <li><a href="#replication-package-architecture" id="toc-replication-package-architecture" class="nav-link" data-scroll-target="#replication-package-architecture">Replication Package Architecture</a></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">Repository Structure</a></li>
+  <li><a href="#computational-requirements" id="toc-computational-requirements" class="nav-link" data-scroll-target="#computational-requirements">Computational Requirements</a></li>
+  <li><a href="#replication-workflow" id="toc-replication-workflow" class="nav-link" data-scroll-target="#replication-workflow">Replication Workflow</a>
   <ul class="collapse">
-  <li><a href="#julia-replication-repository" id="toc-julia-replication-repository" class="nav-link" data-scroll-target="#julia-replication-repository">Julia replication repository</a></li>
+  <li><a href="#package-initialization" id="toc-package-initialization" class="nav-link" data-scroll-target="#package-initialization">Package Initialization</a></li>
   </ul></li>
-  <li><a href="#replication-goals" id="toc-replication-goals" class="nav-link" data-scroll-target="#replication-goals">Replication goals</a></li>
-  <li><a href="#model-summary" id="toc-model-summary" class="nav-link" data-scroll-target="#model-summary">Model summary</a></li>
-  <li><a href="#julia-implementation" id="toc-julia-implementation" class="nav-link" data-scroll-target="#julia-implementation">Julia implementation</a></li>
-  <li><a href="#replication-package-architecture" id="toc-replication-package-architecture" class="nav-link" data-scroll-target="#replication-package-architecture">Replication package architecture</a></li>
-  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">Repository structure</a></li>
-  <li><a href="#replication-workflow" id="toc-replication-workflow" class="nav-link" data-scroll-target="#replication-workflow">Replication workflow</a>
-  <ul class="collapse">
-  <li><a href="#smoke-test" id="toc-smoke-test" class="nav-link" data-scroll-target="#smoke-test">Smoke test</a></li>
-  <li><a href="#full-replication" id="toc-full-replication" class="nav-link" data-scroll-target="#full-replication">Full replication</a>
+  <li><a href="#smoke-test" id="toc-smoke-test" class="nav-link" data-scroll-target="#smoke-test">Smoke Test</a></li>
+  <li><a href="#full-replication" id="toc-full-replication" class="nav-link" data-scroll-target="#full-replication">Full Replication</a>
   <ul class="collapse">
   <li><a href="#important-votes-dataset" id="toc-important-votes-dataset" class="nav-link" data-scroll-target="#important-votes-dataset">Important-votes dataset</a></li>
   <li><a href="#all-votes-dataset" id="toc-all-votes-dataset" class="nav-link" data-scroll-target="#all-votes-dataset">All-votes dataset</a></li>
   </ul></li>
+  <li><a href="#figure-generation" id="toc-figure-generation" class="nav-link" data-scroll-target="#figure-generation">Figure Generation</a>
+  <ul class="collapse">
+  <li><a href="#important-votes-figure" id="toc-important-votes-figure" class="nav-link" data-scroll-target="#important-votes-figure">Important-votes figure</a></li>
+  <li><a href="#all-votes-figure" id="toc-all-votes-figure" class="nav-link" data-scroll-target="#all-votes-figure">All-votes figure</a></li>
   </ul></li>
-  <li><a href="#main-replication-output" id="toc-main-replication-output" class="nav-link" data-scroll-target="#main-replication-output">Main replication output</a></li>
-  <li><a href="#replicated-p5-figures" id="toc-replicated-p5-figures" class="nav-link" data-scroll-target="#replicated-p5-figures">Replicated P5 figures</a>
+  <li><a href="#main-replication-outputs" id="toc-main-replication-outputs" class="nav-link" data-scroll-target="#main-replication-outputs">Main Replication Outputs</a></li>
+  <li><a href="#replicated-p5-figures" id="toc-replicated-p5-figures" class="nav-link" data-scroll-target="#replicated-p5-figures">Replicated P5 Figures</a>
   <ul class="collapse">
   <li><a href="#all-votes-dataset-1" id="toc-all-votes-dataset-1" class="nav-link" data-scroll-target="#all-votes-dataset-1">All-votes dataset</a>
   <ul class="collapse">
@@ -2241,8 +2246,8 @@ vertical-align: -.125em;
   <li><a href="#original-replication-output-1" id="toc-original-replication-output-1" class="nav-link" data-scroll-target="#original-replication-output-1">Original replication output</a></li>
   <li><a href="#julia-replication-1" id="toc-julia-replication-1" class="nav-link" data-scroll-target="#julia-replication-1">Julia replication</a></li>
   </ul></li>
-  <li><a href="#dyadic-ideological-distances" id="toc-dyadic-ideological-distances" class="nav-link" data-scroll-target="#dyadic-ideological-distances">Dyadic ideological distances</a></li>
-  <li><a href="#testing-and-reproducibility" id="toc-testing-and-reproducibility" class="nav-link" data-scroll-target="#testing-and-reproducibility">Testing and reproducibility</a></li>
+  <li><a href="#dyadic-ideological-distances" id="toc-dyadic-ideological-distances" class="nav-link" data-scroll-target="#dyadic-ideological-distances">Dyadic Ideological Distances</a></li>
+  <li><a href="#testing-and-reproducibility" id="toc-testing-and-reproducibility" class="nav-link" data-scroll-target="#testing-and-reproducibility">Testing and Reproducibility</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -2274,49 +2279,43 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<p>This project replicates the Bayesian ideal point estimation procedure from:</p>
+<section id="replicating-un-voting-ideal-points-in-julia" class="level1">
+<h1>Replicating UN Voting Ideal Points in Julia</h1>
+<p>Replication of:</p>
 <p>Bailey, Strezhnev, and Voeten (2017),<br>
 <em>Estimating Dynamic State Preferences from United Nations Voting Data</em>.</p>
-<p>The goal of the project is to reproduce the estimated United Nations voting ideal points using Julia, replicate the main figures from the original paper, and compute dyadic ideological distances between countries.</p>
-<p>The project was developed as part of the Computational Economics course at the Collegio Carlo Alberto.</p>
 </section>
-<section id="original-replication-package" class="level1">
-<h1>Original replication package</h1>
+<section id="author" class="level1">
+<h1>Author</h1>
+<p>Valeria Farinola<br>
+Collegio Carlo Alberto<br>
+valeria.farinola@carloalberto.org</p>
+</section>
+<section id="original-paper-and-replication-package" class="level1">
+<h1>Original Paper and Replication Package</h1>
 <p>Original R/Rcpp replication package:</p>
 <p><a href="https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points" class="uri">https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points</a></p>
-<section id="julia-replication-repository" class="level2">
-<h2 class="anchored" data-anchor-id="julia-replication-repository">Julia replication repository</h2>
 <p>Julia replication package developed for this project:</p>
 <p><a href="https://github.com/valeriafarinola/UNIdealPointsJulia" class="uri">https://github.com/valeriafarinola/UNIdealPointsJulia</a></p>
 </section>
+<section id="high-level-description-of-computational-problem" class="level1">
+<h1>High Level Description of Computational Problem</h1>
+<p>The original paper estimates dynamic country ideal points from United Nations General Assembly voting data using a Bayesian latent variable model estimated via Markov Chain Monte Carlo (MCMC).</p>
+<p>Each country-session receives a latent ideal point parameter representing the country’s position in the international political space. Votes are modeled using latent utilities, vote-specific discrimination parameters, and threshold parameters.</p>
+<p>The computational challenge consists of reproducing the full Gibbs / Metropolis-Hastings estimation procedure in Julia while preserving the structure and behavior of the original R/Rcpp implementation.</p>
 </section>
 <section id="replication-goals" class="level1">
-<h1>Replication goals</h1>
+<h1>Replication Goals</h1>
 <p>The project has four main goals:</p>
 <ol type="1">
-<li>Replicate the original Bayesian MCMC ideal point estimator in Julia.</li>
+<li>Replicate the original Bayesian MCMC estimator in Julia.</li>
 <li>Reproduce country-session ideal point estimates.</li>
 <li>Replicate the P5 ideal point figures from the original paper.</li>
 <li>Compute dyadic ideological distances between countries.</li>
 </ol>
 </section>
-<section id="model-summary" class="level1">
-<h1>Model summary</h1>
-<p>The estimator is a Bayesian ideal point model for United Nations voting data.</p>
-<p>Each country-session receives a latent ideal point parameter, denoted as theta. Votes are modeled using a latent continuous utility variable and vote-specific threshold parameters.</p>
-<p>The sampler iteratively updates:</p>
-<ul>
-<li>theta ideal points;</li>
-<li>gamma threshold parameters;</li>
-<li>latent Z utilities;</li>
-<li>beta discrimination parameters.</li>
-</ul>
-<p>The implementation reproduces the full Gibbs / Metropolis-Hastings MCMC workflow of the original replication package.</p>
-</section>
 <section id="julia-implementation" class="level1">
-<h1>Julia implementation</h1>
+<h1>Julia Implementation</h1>
 <p>The Julia implementation includes:</p>
 <ul>
 <li>theta update;</li>
@@ -2335,8 +2334,8 @@ vertical-align: -.125em;
 </ul>
 </section>
 <section id="replication-package-architecture" class="level1">
-<h1>Replication package architecture</h1>
-<p>The project was refactored into a unified replication package organized around a single master replication function:</p>
+<h1>Replication Package Architecture</h1>
+<p>The repository was refactored into a unified replication package organized around a single master replication interface:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(; dataset, test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The function supports:</p>
 <ul>
@@ -2362,7 +2361,7 @@ vertical-align: -.125em;
 <p>while the <code>scripts/</code> directory contains lightweight wrapper scripts calling the main replication API.</p>
 </section>
 <section id="repository-structure" class="level1">
-<h1>Repository structure</h1>
+<h1>Repository Structure</h1>
 <pre class="text"><code>UNIdealPointsJulia/
 │
 ├── src/
@@ -2375,18 +2374,56 @@ vertical-align: -.125em;
 ├── README.md
 └── Project.toml</code></pre>
 </section>
+<section id="computational-requirements" class="level1">
+<h1>Computational Requirements</h1>
+<p>The project requires:</p>
+<ul>
+<li>Julia;</li>
+<li>package environment activation via <code>Pkg.instantiate()</code>;</li>
+<li>intermediate processed data files already included in the repository under the <code>data/</code> directory.</li>
+</ul>
+<p>The intermediate data were generated from the original R/Rcpp replication package and are distributed together with this Julia replication package.</p>
+<p>The full Bayesian MCMC replication is computationally intensive because the estimator performs a large number of iterative Gibbs / Metropolis-Hastings updates.</p>
+<p>The full replication runs use:</p>
+<ul>
+<li>K = 20000 MCMC iterations;</li>
+<li>Burn = 4000;</li>
+<li>Thin = 50.</li>
+</ul>
+<p>As a consequence, full estimation runs can require substantial execution time depending on hardware configuration.</p>
+<p>For this reason, the repository also provides a lightweight smoke test designed to quickly verify:</p>
+<ul>
+<li>package portability;</li>
+<li>dependency configuration;</li>
+<li>correct execution of the full Bayesian sampling pipeline.</li>
+</ul>
+<p>The smoke test executes the same estimation workflow with a substantially reduced number of MCMC iterations and is recommended before launching full replication runs.</p>
+</section>
 <section id="replication-workflow" class="level1">
-<h1>Replication workflow</h1>
-<section id="smoke-test" class="level2">
-<h2 class="anchored" data-anchor-id="smoke-test">Smoke test</h2>
+<h1>Replication Workflow</h1>
+<section id="package-initialization" class="level2">
+<h2 class="anchored" data-anchor-id="package-initialization">Package Initialization</h2>
+<p>From the repository root:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> <span class="at">--project</span><span class="op">=</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="smoke-test" class="level1">
+<h1>Smoke Test</h1>
 <p>A lightweight smoke test can be executed with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The smoke test runs the complete Bayesian sampling pipeline with a substantially reduced number of MCMC iterations.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The smoke test runs the complete Bayesian sampling pipeline with a substantially reduced number of iterations.</p>
 <p>Its purpose is to verify:</p>
 <ul>
 <li>repository portability;</li>
@@ -2395,43 +2432,51 @@ vertical-align: -.125em;
 <li>reproducibility of the replication workflow.</li>
 </ul>
 </section>
-<section id="full-replication" class="level2">
-<h2 class="anchored" data-anchor-id="full-replication">Full replication</h2>
-<section id="important-votes-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="important-votes-dataset">Important-votes dataset</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>important,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="full-replication" class="level1">
+<h1>Full Replication</h1>
+<section id="important-votes-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="important-votes-dataset">Important-votes dataset</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>important,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="all-votes-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="all-votes-dataset">All-votes dataset</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="all-votes-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="all-votes-dataset">All-votes dataset</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">UNIdealPointsJulia</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>UNIdealPointsJulia.<span class="fu">run_replication</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> <span class="op">:</span>all,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    test <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
+<section id="figure-generation" class="level1">
+<h1>Figure Generation</h1>
+<p>After running the corresponding full replication, figures can be generated from the repository root.</p>
+<section id="important-votes-figure" class="level2">
+<h2 class="anchored" data-anchor-id="important-votes-figure">Important-votes figure</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> <span class="at">--project</span><span class="op">=</span>. scripts/plot_p5_important.jl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="main-replication-output" class="level1">
-<h1>Main replication output</h1>
-<p>The full All-votes MCMC run used:</p>
-<ul>
-<li>K = 20000</li>
-<li>Burn = 4000</li>
-<li>Thin = 50</li>
-</ul>
+<section id="all-votes-figure" class="level2">
+<h2 class="anchored" data-anchor-id="all-votes-figure">All-votes figure</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> <span class="at">--project</span><span class="op">=</span>. scripts/plot_p5.jl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The plotting scripts require the corresponding full MCMC output files:</p>
+<pre class="text"><code>output/ThetaEst_full.csv
+output/ThetaEst_full_all.csv</code></pre>
+</section>
+</section>
+<section id="main-replication-outputs" class="level1">
+<h1>Main Replication Outputs</h1>
 <p>Main outputs generated by the package include:</p>
 <pre class="text"><code>output/ThetaEst_full.csv
 output/ThetaEst_full_all.csv
 output/dyadic_distances_full_all.csv</code></pre>
 </section>
 <section id="replicated-p5-figures" class="level1">
-<h1>Replicated P5 figures</h1>
+<h1>Replicated P5 Figures</h1>
 <section id="all-votes-dataset-1" class="level2">
 <h2 class="anchored" data-anchor-id="all-votes-dataset-1">All-votes dataset</h2>
 <section id="original-replication-output" class="level3">
@@ -2458,14 +2503,14 @@ output/dyadic_distances_full_all.csv</code></pre>
 </section>
 </section>
 <section id="dyadic-ideological-distances" class="level1">
-<h1>Dyadic ideological distances</h1>
+<h1>Dyadic Ideological Distances</h1>
 <p>Dyadic ideological distances are computed as a post-estimation transformation:</p>
 <pre class="text"><code>distance(i,j) = |theta_i - theta_j|</code></pre>
 <p>The dyadic distance output is stored in:</p>
 <pre class="text"><code>output/dyadic_distances_full_all.csv</code></pre>
 </section>
 <section id="testing-and-reproducibility" class="level1">
-<h1>Testing and reproducibility</h1>
+<h1>Testing and Reproducibility</h1>
 <p>The repository includes:</p>
 <ul>
 <li>package unit tests;</li>
@@ -2474,8 +2519,8 @@ output/dyadic_distances_full_all.csv</code></pre>
 <li>full replication workflows for both datasets.</li>
 </ul>
 <p>Package tests can be executed with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">test</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">test</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
