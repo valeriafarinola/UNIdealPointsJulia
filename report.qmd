@@ -1,34 +1,46 @@
 ---
-title: "Replicating UN Voting Ideal Points in Julia"
-
+title: "Replication of Bailey, Strezhnev, and Voeten (2017)"
+subtitle: "Estimating Dynamic State Preferences from United Nations Voting Data"
 author:
-  - name: "Valeria Farinola"
-    affiliation: "Collegio Carlo Alberto"
-    email: "valeria.farinola@carloalberto.org"
-
+  - name: Valeria Farinola
+    affiliation: Collegio Carlo Alberto
+    email: valeria.farinola@carloalberto.org
 format:
   html:
     toc: true
-    toc-depth: 3
-    embed-resources: true
-
+    toc-depth: 2
+    theme: cosmo
+execute:
+  echo: false
+  warning: false
+  message: false
 output-file: index.html
 ---
 
-# Replicating UN Voting Ideal Points in Julia
+::: callout-note
+## Collegio Carlo Alberto Replication Project
 
-Replication of:
+This report was created as part of the assessment for the [Computational Economics Course](https://floswald.github.io/CompEcon/) in the PhD program at Collegio Carlo Alberto taught by Florian Oswald.
+:::
 
-Bailey, Strezhnev, and Voeten (2017),  
-*Estimating Dynamic State Preferences from United Nations Voting Data*.
+# Introduction
 
-# Original Paper and Replication Package
+This project replicates the results of:
 
-Original R/Rcpp replication package:
+> Bailey, M., Strezhnev, A., and Voeten, E. (2017),  
+> *Estimating Dynamic State Preferences from United Nations Voting Data*.
+
+The paper develops a Bayesian latent variable framework to estimate dynamic country ideal points using United Nations General Assembly voting records. Each country is assigned a latent ideological position that evolves over time and summarizes its location in the international political space.
+
+The project reproduces the main estimation procedure of the original R/Rcpp replication package using Julia. In particular, the replication reconstructs the full Gibbs / Metropolis-Hastings estimation pipeline, generates dynamic ideal point estimates, and reproduces the main substantive figures presented in the original analysis.
+
+In addition, the repository was reorganized into a modular replication package centered around a unified Julia API, improving portability, reproducibility, and computational transparency.
+
+The implementation is based on the original replication materials provided by the authors:
 
 <https://github.com/evoeten/United-Nations-General-Assembly-Votes-and-Ideal-Points>
 
-Julia replication package developed for this project:
+The Julia replication package developed for this project is available at:
 
 <https://github.com/valeriafarinola/UNIdealPointsJulia>
 
@@ -36,18 +48,41 @@ Julia replication package developed for this project:
 
 The original paper estimates dynamic country ideal points from United Nations General Assembly voting data using a Bayesian latent variable model estimated via Markov Chain Monte Carlo (MCMC).
 
-Each country-session receives a latent ideal point parameter representing the country's position in the international political space. Votes are modeled using latent utilities, vote-specific discrimination parameters, and threshold parameters.
+Each country-session receives a latent ideal point parameter representing the country's position in the international political space. Votes are modeled using latent utilities together with vote-specific discrimination parameters and threshold parameters.
 
-The computational challenge consists of reproducing the full Gibbs / Metropolis-Hastings estimation procedure in Julia while preserving the structure and behavior of the original R/Rcpp implementation.
+The estimation framework combines Gibbs sampling and Metropolis-Hastings updates to iteratively sample from the joint posterior distribution of the latent political positions and model parameters.
 
-# Replication Goals
+At the core of the model is the latent utility representation:
 
-The project has four main goals:
+$$
+U_{ijt} = \beta_j \theta_{it} - \gamma_j + \varepsilon_{ijt}
+$$
 
-1. Replicate the original Bayesian MCMC estimator in Julia.
-2. Reproduce country-session ideal point estimates.
-3. Replicate the P5 ideal point figures from the original paper.
-4. Compute dyadic ideological distances between countries.
+where:
+
+- $\theta_{it}$ denotes the latent ideal point of country $i$ at time $t$;
+- $\beta_j$ is the discrimination parameter for vote $j$;
+- $\gamma_j$ is the vote threshold parameter;
+- $\varepsilon_{ijt}$ is an idiosyncratic error term.
+
+Country ideal points evolve dynamically according to a lagged prior structure:
+
+$$
+\theta_{it} \sim \mathcal{N}(\theta_{i,t-1}, \sigma^2)
+$$
+
+which induces temporal persistence in ideological positions across UNGA sessions.
+
+From a computational perspective, the replication problem consists of:
+
+- reconstructing the Bayesian estimation pipeline in Julia;
+- implementing Gibbs and Metropolis-Hastings parameter updates;
+- reproducing posterior sampling behavior of the original R/Rcpp implementation;
+- storing and averaging posterior draws;
+- generating dynamic ideal point trajectories;
+- computing dyadic ideological distances.
+
+The full estimation procedure is computationally intensive because the MCMC algorithm requires a large number of iterative posterior updates across countries, sessions, and votes.
 
 # Julia Implementation
 
@@ -62,31 +97,6 @@ The Julia implementation includes:
 - posterior storage and averaging;
 - ideal point export.
 
-The implementation supports both:
-
-- the All-votes dataset;
-- the Important-votes dataset.
-
-# Replication Package Architecture
-
-The repository was refactored into a unified replication package organized around a single master replication interface:
-
-```julia
-UNIdealPointsJulia.run_replication(; dataset, test)
-```
-
-The function supports:
-
-- multiple datasets:
-  - `dataset = :all`
-  - `dataset = :important`
-
-- multiple execution modes:
-  - `test = true`
-    - lightweight smoke test;
-  - `test = false`
-    - full Bayesian MCMC replication.
-
 The full estimation logic is implemented in:
 
 ```text
@@ -95,23 +105,23 @@ src/replication.jl
 
 while the `scripts/` directory contains lightweight wrapper scripts calling the main replication API.
 
-# Repository Structure
+The repository was refactored into a unified replication package organized around a single master replication interface:
 
-```text
-UNIdealPointsJulia/
-│
-├── src/
-├── scripts/
-├── data/
-├── output/
-├── figures/
-├── notes/
-├── report.qmd
-├── README.md
-└── Project.toml
+```julia
+UNIdealPointsJulia.run_replication(; dataset, test)
 ```
+# The Computational Setup
 
-# Computational Requirements
+The project was developed and executed locally using Julia.
+
+Main packages used:
+
+- DataFrames.jl
+- CSV.jl
+- Distributions.jl
+- StatsBase.jl
+
+All dependencies are documented in the `Project.toml` and `Manifest.toml` files included in the repository.
 
 The project requires:
 
@@ -131,104 +141,7 @@ The full replication runs use:
 
 As a consequence, full estimation runs can require substantial execution time depending on hardware configuration.
 
-For this reason, the repository also provides a lightweight smoke test designed to quickly verify:
-
-- package portability;
-- dependency configuration;
-- correct execution of the full Bayesian sampling pipeline.
-
-The smoke test executes the same estimation workflow with a substantially reduced number of MCMC iterations and is recommended before launching full replication runs.
-
-
-# Replication Workflow
-
-## Package Initialization
-
-From the repository root:
-
-```bash
-julia --project=.
-```
-
-Then:
-
-```julia
-using Pkg
-Pkg.instantiate()
-
-using UNIdealPointsJulia
-
-UNIdealPointsJulia.run()
-```
-
-# Smoke Test
-
-A lightweight smoke test can be executed with:
-
-```julia
-using UNIdealPointsJulia
-
-UNIdealPointsJulia.run_replication(
-    dataset = :all,
-    test = true
-)
-```
-
-The smoke test runs the complete Bayesian sampling pipeline with a substantially reduced number of iterations.
-
-Its purpose is to verify:
-
-- repository portability;
-- dependency configuration;
-- sampler execution;
-- reproducibility of the replication workflow.
-
-# Full Replication
-
-## Important-votes dataset
-
-```julia
-using UNIdealPointsJulia
-
-UNIdealPointsJulia.run_replication(
-    dataset = :important,
-    test = false
-)
-```
-
-## All-votes dataset
-
-```julia
-using UNIdealPointsJulia
-
-UNIdealPointsJulia.run_replication(
-    dataset = :all,
-    test = false
-)
-```
-
-# Figure Generation
-
-After running the corresponding full replication, figures can be generated from the repository root.
-
-## Important-votes figure
-
-```bash
-julia --project=. scripts/plot_p5_important.jl
-```
-
-## All-votes figure
-
-```bash
-julia --project=. scripts/plot_p5.jl
-```
-
-The plotting scripts require the corresponding full MCMC output files:
-
-```text
-output/ThetaEst_full.csv
-output/ThetaEst_full_all.csv
-```
+For this reason, the repository also provides a lightweight smoke test using a substantially reduced number of MCMC iterations for portability and reproducibility verification before launching full replication runs.
 
 # Main Replication Outputs
 
@@ -240,29 +153,39 @@ output/ThetaEst_full_all.csv
 output/dyadic_distances_full_all.csv
 ```
 
-# Replicated P5 Figures
+# Results
 
-## All-votes dataset
+## Replicated P5 Figures
 
-### Original replication output
+### All-votes dataset
 
+#### Original replication output
+
+::: {.text-center}
 ![](figures/Figure1All_Apr2020.png){width=70%}
+:::
 
-### Julia replication
+#### Julia replication
 
+::: {.text-center}
 ![](figures/p5_ideal_points_julia.png){width=70%}
+:::
 
 The Julia replication reproduces the main substantive dynamics of the original replication output, including the relative positioning of the United States, USSR/Russia, China, the United Kingdom, and France across UNGA sessions.
 
-# Important-votes dataset
+## Important-votes dataset
 
-## Original replication output
+### Original replication output
 
+::: {.text-center}
 ![](figures/Figure1Important_Apr2020.png){width=70%}
+:::
 
-## Julia replication
+### Julia replication
 
+::: {.text-center}
 ![](figures/p5_ideal_points_julia_important.png){width=70%}
+:::
 
 The Julia replication based on the Important-votes subset reproduces the broad structure of the original replication output while reflecting differences due to MCMC sampling variation and implementation details.
 
@@ -270,9 +193,9 @@ The Julia replication based on the Important-votes subset reproduces the broad s
 
 Dyadic ideological distances are computed as a post-estimation transformation:
 
-```text
-distance(i,j) = |theta_i - theta_j|
-```
+$$
+distance(i,j) = |\theta_i - \theta_j|
+$$
 
 The dyadic distance output is stored in:
 
@@ -282,12 +205,7 @@ output/dyadic_distances_full_all.csv
 
 # Testing and Reproducibility
 
-The repository includes:
-
-- package unit tests;
-- repository-relative paths using `@__DIR__`;
-- lightweight smoke-test replication runs;
-- full replication workflows for both datasets.
+The repository includes package unit tests, repository-relative paths using `@__DIR__`, and lightweight smoke-test replication runs for portability and reproducibility verification.
 
 Package tests can be executed with:
 
@@ -301,3 +219,5 @@ Pkg.test()
 The Julia implementation successfully reproduces the main computational steps of the original R/Rcpp estimator and replicates the main substantive dynamics of the original paper.
 
 The final repository structure follows a replication-package design centered around a reusable master replication interface and lightweight execution wrappers.
+
+The project demonstrates how computational political economy workflows originally implemented in R/Rcpp can be fully replicated and modularized in Julia while preserving both estimation logic and substantive empirical results.
