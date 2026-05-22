@@ -1,6 +1,10 @@
 ---
 title: "Replicating UN Voting Ideal Points in Julia"
-author: "Valeria Farinola"
+
+author:
+  - name: "Valeria Farinola"
+    affiliation: "Collegio Carlo Alberto"
+    email: "valeria.farinola@carloalberto.org"
 
 format:
   html:
@@ -17,14 +21,6 @@ Replication of:
 
 Bailey, Strezhnev, and Voeten (2017),  
 *Estimating Dynamic State Preferences from United Nations Voting Data*.
-
-# Author
-
-Valeria Farinola  
-Collegio Carlo Alberto  
-valeria.farinola@carloalberto.org
-
-
 
 # Original Paper and Replication Package
 
